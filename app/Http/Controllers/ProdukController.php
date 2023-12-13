@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use App\Models\Produk;
+use Barryvdh\DomPDF\Facade\Pdf;
+// use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -75,21 +78,35 @@ class ProdukController extends Controller
     {
         Produk::destroy($produk->id);
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->back()->with('success', 'Produk berhasil dihapus.');
     }
 
     public function deleteSelected(Request $request)
     {
-        $selectedProduks = $request->input('selected_produks');
-        dd($selectedProduks);
+        $ids = $request->ids;
 
-        // Check if there are selected produks
-        if (!empty($selectedProduks)) {
-            // Delete the selected produks
-            Produk::whereIn('id', $selectedProduks)->delete();
-            return redirect()->back()->with('success', 'Selected produk(s) deleted successfully');
+        if (!empty($ids)) {
+            Produk::whereIn('id', explode(",", $ids))->delete();
+            // return redirect()->back()->with('success', 'Produk berhasil dihapus'); 
+            return response()->json(['status' => true, 'message' => 'Produk berhasil dihapus']);
         }
 
-        return redirect()->back()->with('error', 'Tidak ada produk yang dipilih');
+        // return redirect()->back()->with('error', 'Tidak ada produk yang dipilih');
+        return response()->json(['status' => false, 'message' => 'Tidak ada produk yang dipilih']);
+    }
+
+    public function cetakBarcode(Request $request)
+    {   
+        
+        $dataproduk = array();
+        foreach ($request->id as $id) {
+            $produk = Produk::find($id);
+            $dataproduk[] = $produk;
+        }
+// dd($dataproduk);
+        $no  = 1;
+        $pdf = Pdf::loadView('dashboard.produk.barcode', compact('dataproduk', 'no'));
+        $pdf->setPaper('a4', 'potrait');
+        return $pdf->stream('produk.pdf');
     }
 }
