@@ -35,6 +35,45 @@
         </div>
     </div>
 
+    @foreach ($kategoris as $key => $kategori)
+        <!-- Modal Edit-->
+        <div class="modal fade" id="modalEdit{{ $kategori->id }}" tabindex="-1"
+            aria-labelledby="modalEdit{{ $kategori->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEdit{{ $kategori->id }}">Edit
+                            Kategori</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="py-2 needs-validation" action="{{ route('kategori.update', $kategori->id) }}"
+                        method="post" enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama
+                                    Kategori</label>
+                                <input type="text" class="form-control" placeholder="Masukan nama..."
+                                    value="{{ $kategori->nama_kategori }}" id="nama" aria-describedby="nama"
+                                    name="nama" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     <div class="app-content">
         <div class="content-wrapper">
             <div class="">
@@ -82,49 +121,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($kategoris as $key => $kategori)
-                                            <!-- Modal Edit-->
-                                            <div class="modal fade" id="modalEdit{{ $kategori->id }}" tabindex="-1"
-                                                aria-labelledby="modalEdit{{ $kategori->id }}" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="modalEdit{{ $kategori->id }}">Edit
-                                                                Kategori</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <form class="py-2 needs-validation"
-                                                            action="{{ route('kategori.update', $kategori->id) }}"
-                                                            method="post" enctype="multipart/form-data">
-                                                            @method('put')
-                                                            @csrf
-                                                            <div class="modal-body">
-                                                                <div class="mb-3">
-                                                                    <label for="nama" class="form-label">Nama
-                                                                        Kategori</label>
-                                                                    <input type="text" class="form-control"
-                                                                        placeholder="Masukan nama..."
-                                                                        value="{{ $kategori->nama_kategori }}"
-                                                                        id="nama" aria-describedby="nama"
-                                                                        name="nama" required>
-                                                                </div>
-                                                                <div class="invalid-feedback">
-                                                                    Tidak boleh kosong
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-light"
-                                                                    data-bs-dismiss="modal">Batal</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
-
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $kategori->nama_kategori }}</td>

@@ -21,4 +21,6 @@ Route::resource('/kategori', \App\Http\Controllers\KategoriController::class);
 Route::resource('/produk', \App\Http\Controllers\ProdukController::class);
 Route::delete('/produks/deleteSelected', [ProdukController::class, 'deleteSelected'])->name('produk.deleteSelected');
 Route::post('/produks/cetakBarcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
-Route::put('/produks/cetakBarcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
+// Route::put('/produks/cetakBarcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetakBarcode');
+Route::resource('/member', \App\Http\Controllers\MemberController::class);
+Route::resource('/supplier', \App\Http\Controllers\SupplierController::class);

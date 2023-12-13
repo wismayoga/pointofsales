@@ -24,11 +24,11 @@
             <li class="{{ request()->routeIs('produk.index', 'produk.edit', 'produk.create') ? 'active-page' : '' }}">
                 <a href="{{ route('produk.index') }}"><i class="material-icons-two-tone">inventory_2</i>Produk</a>
             </li>
-            <li>
-                <a href="file-manager.html"><i class="material-icons-two-tone">group</i>Member</a>
+            <li class="{{ request()->routeIs('member.index', 'member.edit', 'member.create') ? 'active-page' : '' }}">
+                <a href="{{ route('member.index') }}"><i class="material-icons-two-tone">group</i>Member</a>
             </li>
-            <li>
-                <a href="file-manager.html"><i class="material-icons-two-tone">airport_shuttle</i>Supplier</a>
+            <li class="{{ request()->routeIs('supplier.index', 'supplier.edit', 'supplier.create') ? 'active-page' : '' }}">
+                <a href="{{ route('supplier.index') }}"><i class="material-icons-two-tone">airport_shuttle</i>Supplier</a>
             </li>
 
             <li class="sidebar-title">

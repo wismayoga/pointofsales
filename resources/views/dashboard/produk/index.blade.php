@@ -88,6 +88,111 @@
         </div>
     </div>
 
+    @foreach ($produks as $key => $produk)
+        <!-- Modal Edit-->
+        <div class="modal fade" id="modalEdit{{ $produk->id }}" tabindex="-1"
+            aria-labelledby="modalEdit{{ $produk->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEdit{{ $produk->id }}">
+                            Edit
+                            Produk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form class="py-2 needs-validation" action="{{ route('produk.update', $produk->id) }}" method="post"
+                        enctype="multipart/form-data">
+                        @method('put')
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama
+                                    Produk</label>
+                                <input type="text" class="form-control" placeholder="Masukan nama..."
+                                    value="{{ $produk->nama_produk }}" id="nama" aria-describedby="nama"
+                                    name="nama" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                            <label for="kategori" class="form-label mt-3">Kategori</label>
+                            <select class="form-select" aria-label="Default select example" id="kategori"
+                                name="kategori" required>
+                                <option selected value="{{ $produk->id_kategori }}">
+                                    {{ $produk->nama_kategori }}</option>
+                                @foreach ($kategoris as $kategori)
+                                    @if ($kategori->id !== $produk->id_kategori)
+                                        <option value="{{ $kategori->id }}">
+                                            {{ $kategori->nama_kategori }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+
+                            <div class="mb-3">
+                                <label for="merk" class="form-label">Merk</label>
+                                <input type="text" class="form-control" placeholder="Masukan merk..."
+                                    value="{{ $produk->merk }}" id="merk" aria-describedby="merk" name="merk"
+                                    required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="harga_beli" class="form-label">Harga
+                                    Beli</label>
+                                <input type="number" class="form-control" placeholder="Masukan harga beli..."
+                                    value="{{ $produk->harga_beli }}" id="harga_beli" aria-describedby="harga_beli"
+                                    name="harga_beli" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="diskon" class="form-label">Diskon</label>
+                                <input type="number" class="form-control" value="{{ $produk->diskon }}"
+                                    placeholder="Masukan diskon..." id="diskon" aria-describedby="diskon"
+                                    name="diskon" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="harga_jual" class="form-label">Harga
+                                    Jual</label>
+                                <input type="number" class="form-control" placeholder="Masukan harga jual..."
+                                    value="{{ $produk->harga_jual }}" id="harga_jual" aria-describedby="harga_jual"
+                                    name="harga_jual" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="stok" class="form-label">Stok</label>
+                                <input type="number" class="form-control" value="{{ $produk->stok }}"
+                                    placeholder="Masukan stok..." id="stok" aria-describedby="stok" name="stok"
+                                    required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Tidak boleh kosong
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     <div class="app-content">
         <div class="content-wrapper">
             <div class="">
@@ -157,136 +262,10 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($produks as $key => $produk)
-                                                <!-- Modal Edit-->
-                                                <div class="modal fade" id="modalEdit{{ $produk->id }}" tabindex="-1"
-                                                    aria-labelledby="modalEdit{{ $produk->id }}" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title"
-                                                                    id="modalEdit{{ $produk->id }}">
-                                                                    Edit
-                                                                    Produk</h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <form class="py-2 needs-validation"
-                                                                action="{{ route('produk.update', $produk->id) }}"
-                                                                method="post" enctype="multipart/form-data">
-                                                                @method('put')
-                                                                @csrf
-                                                                <div class="modal-body">
-                                                                    <div class="mb-3">
-                                                                        <label for="nama" class="form-label">Nama
-                                                                            Produk</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Masukan nama..."
-                                                                            value="{{ $produk->nama_produk }}"
-                                                                            id="nama" aria-describedby="nama"
-                                                                            name="nama" required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                    <label for="kategori"
-                                                                        class="form-label mt-3">Kategori</label>
-                                                                    <select class="form-select"
-                                                                        aria-label="Default select example" id="kategori"
-                                                                        name="kategori" required>
-                                                                        <option selected
-                                                                            value="{{ $produk->id_kategori }}">
-                                                                            {{ $produk->nama_kategori }}</option>
-                                                                        @foreach ($kategoris as $kategori)
-                                                                            @if ($kategori->id !== $produk->id_kategori)
-                                                                                <option value="{{ $kategori->id }}">
-                                                                                    {{ $kategori->nama_kategori }}</option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </select>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="merk"
-                                                                            class="form-label">Merk</label>
-                                                                        <input type="text" class="form-control"
-                                                                            placeholder="Masukan merk..."
-                                                                            value="{{ $produk->merk }}" id="merk"
-                                                                            aria-describedby="merk" name="merk"
-                                                                            required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="harga_beli" class="form-label">Harga
-                                                                            Beli</label>
-                                                                        <input type="number" class="form-control"
-                                                                            placeholder="Masukan harga beli..."
-                                                                            value="{{ $produk->harga_beli }}"
-                                                                            id="harga_beli" aria-describedby="harga_beli"
-                                                                            name="harga_beli" required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="diskon"
-                                                                            class="form-label">Diskon</label>
-                                                                        <input type="number" class="form-control"
-                                                                            value="{{ $produk->diskon }}"
-                                                                            placeholder="Masukan diskon..." id="diskon"
-                                                                            aria-describedby="diskon" name="diskon"
-                                                                            required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="harga_jual" class="form-label">Harga
-                                                                            Jual</label>
-                                                                        <input type="number" class="form-control"
-                                                                            placeholder="Masukan harga jual..."
-                                                                            value="{{ $produk->harga_jual }}"
-                                                                            id="harga_jual" aria-describedby="harga_jual"
-                                                                            name="harga_jual" required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label for="stok"
-                                                                            class="form-label">Stok</label>
-                                                                        <input type="number" class="form-control"
-                                                                            value="{{ $produk->stok }}"
-                                                                            placeholder="Masukan stok..." id="stok"
-                                                                            aria-describedby="stok" name="stok"
-                                                                            required>
-                                                                    </div>
-                                                                    <div class="invalid-feedback">
-                                                                        Tidak boleh kosong
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-light"
-                                                                        data-bs-dismiss="modal">Batal</button>
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Simpan</button>
-
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <tr id="tr_{{ $produk->id }}">
                                                     <td>
-                                                        <input type="checkbox" class="checkbox" name="id[]" value="{{ $produk->id }}"
-                                                            data-id="{{ $produk->id }}">
+                                                        <input type="checkbox" class="checkbox" name="id[]"
+                                                            value="{{ $produk->id }}" data-id="{{ $produk->id }}">
                                                     </td>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>
